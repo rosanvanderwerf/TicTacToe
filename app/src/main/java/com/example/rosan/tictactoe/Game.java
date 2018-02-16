@@ -17,6 +17,9 @@ public class Game implements Serializable {
 
     private GameState status;
 
+    private Integer p1_wins;
+    private Integer p2_wins;
+
     public Game() {
         board = new Tile[BOARD_SIZE][BOARD_SIZE];
         for(int i=0; i<BOARD_SIZE; i++)
@@ -57,61 +60,78 @@ public class Game implements Serializable {
     }
 
     public GameState gameState() {
+        p1_wins = 0;
+        p2_wins = 0;
         // 1 Diagonal left top and downright (CROSS && CIRCLE)
         if (board[0][0] == Tile.CROSS && board[1][1] == Tile.CROSS && board[2][2] == Tile.CROSS) {
-            gameOver = true;
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][0] == Tile.CIRCLE && board[1][1] == Tile.CIRCLE && board[2][2] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 2 Diagonal downright and left top CROSS && CIRCLE)
         if (board[0][2] == Tile.CROSS && board[1][1] == Tile.CROSS && board[2][0] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][2] == Tile.CIRCLE && board[1][1] == Tile.CIRCLE && board[2][0] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 3 first row
         if (board[0][0] == Tile.CROSS && board[0][1] == Tile.CROSS && board[0][2] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][0] == Tile.CIRCLE && board[0][1] == Tile.CIRCLE && board[0][2] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 4 second row
         if (board[1][0] == Tile.CROSS && board[1][1] == Tile.CROSS && board[1][2] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[1][0] == Tile.CIRCLE && board[1][1] == Tile.CIRCLE && board[1][2] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 5 third row
         if (board[2][0] == Tile.CROSS && board[2][1] == Tile.CROSS && board[2][2] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[2][0] == Tile.CIRCLE && board[2][1] == Tile.CIRCLE && board[2][2] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 6 first column
         if (board[0][0] == Tile.CROSS && board[1][0] == Tile.CROSS && board[2][0] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][0] == Tile.CIRCLE && board[1][0] == Tile.CIRCLE && board[2][0] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 7 second column
         if (board[0][1] == Tile.CROSS && board[1][1] == Tile.CROSS && board[2][1] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][1] == Tile.CIRCLE && board[1][1] == Tile.CIRCLE && board[2][1] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         // 8 third column
         if (board[0][2] == Tile.CROSS && board[1][2] == Tile.CROSS && board[2][2] == Tile.CROSS) {
+            p1_wins += 1;
             return GameState.PLAYER_ONE;
         }
         if (board[0][2] == Tile.CIRCLE && board[1][2] == Tile.CIRCLE && board[2][2] == Tile.CIRCLE) {
+            p2_wins += 1;
             return GameState.PLAYER_TWO;
         }
         if (board[0][0] != Tile.BLANK && board[0][1] != Tile.BLANK && board[0][2] != Tile.BLANK &&
@@ -123,7 +143,17 @@ public class Game implements Serializable {
         }
     }
 
+
     public int getMoves(){
         return movesPlayed;
     }
+
+    public int player1_wins() {
+        return p1_wins;
+    }
+
+    public int player2_wins(){
+        return p2_wins;
+    }
+
 }
